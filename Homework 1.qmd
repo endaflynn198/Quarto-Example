@@ -1,0 +1,49 @@
+---
+title: '\textcolor{blue}{Homework 1}'
+subtitle: "**21200842**"
+
+format: 
+  pdf
+editor: visual
+---
+
+# \textcolor{blue}{Dataset}
+
+The `mtcars` dataset contains a column containing the fuel consumption `mpg` and 10 other columns detailing various aspects of the 32 cars. The simple dimensions of *32 rows* and *11 numeric columns* make this dataset easy to work with.
+
+Further background can be found at: <https://www.rdocumentation.org/packages/datasets/versions/3.6.2/topics/mtcars>
+
+And a numeric summary is provided below:
+
+```{r}
+summary(mtcars)
+```
+
+# \textcolor{blue}{Plot}
+
+As can be seen above, the summary statistics when just printed out look unwieldy and are hard to extract insights and relationships from at a glance. We will utilise a plot to provide a more aesthetic and insightful analysis of the data.
+
+We focus on a scatterplot of miles per gallon vs horse power coloured by the number of cylinders. In this graph we can clearly see that a lower number of cylinders and a lower horse power correspond to higher miles per gallon. We also note that cars with lower weight (smaller circles) also tend to have higher miles per gallon.
+
+Note also that we used the `ggthemes` package to provide a more aesthetically pleasing theme than the default `ggplot` theme.
+
+```{r}
+#| echo: false
+
+library(ggthemes)
+library(ggplot2)
+
+# Load the  dataset
+data("mtcars")
+
+# Create a scatter plot of mpg vs hp coloured by cyl (number of cylinders) and sized by wt (weight)
+ggplot(mtcars, aes(x=hp, y=mpg, color=factor(cyl), size=wt)) +
+  geom_point(alpha=0.5) +
+  theme_economist() +
+  scale_fill_economist() +   labs(title="Scatter Plot of MPG vs Horsepower",
+       x="Horsepower",
+       y="Miles Per Gallon",
+       color="Number of Cylinders",
+       size="Weight (1000 lbs)") +
+  theme(legend.position="right")
+```
